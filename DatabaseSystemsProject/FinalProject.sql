@@ -1,7 +1,6 @@
 
 -- CSE3153 Final Project
 -- Phone Book / Address Book System
--- This script creates the database and adds sample information.
 
 USE master;
 GO
