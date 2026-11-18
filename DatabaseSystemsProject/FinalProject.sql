@@ -164,3 +164,27 @@ INNER JOIN Kennesaw.EmailAddress AS e
     ON i.individual_id = e.individual_id
 ORDER BY i.last_name, i.first_name;
 GO
+
+--#17 This join report uses group by to join the Individual table with PhoneNumber, EmailAddress, and Address tables 
+--then uses COUNT() and Group By to count how many contact methods each individual has
+SELECT
+    i.individual_id,
+    i.first_name,
+    i.last_name,
+    COUNT(DISTINCT p.phone_id) AS total_phones,
+    COUNT(DISTINCT e.email_id) AS total_emails,
+    COUNT(DISTINCT ia.address_id) AS total_addresses
+FROM Kennesaw.Individual AS i
+LEFT JOIN Kennesaw.PhoneNumber AS p 
+    ON i.individual_id = p.individual_id
+LEFT JOIN Kennesaw.EmailAddress AS e 
+    ON i.individual_id = e.individual_id
+LEFT JOIN Kennesaw.IndividualAddress AS ia 
+    ON i.individual_id = ia.individual_id
+GROUP BY 
+    i.individual_id, 
+    i.first_name, 
+    i.last_name
+ORDER BY 
+    i.last_name, 
+    i.first_name;
